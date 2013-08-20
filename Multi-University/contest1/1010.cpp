@@ -89,6 +89,9 @@ int main(){
 		fft(y, l, -1);
 
 		rep(i, l) res[i]=(ll)(y[i].re+0.5);
+		rep(i, m) res[i*2]=(res[i*2]-a[i])/2;
+
+		rep(i, l) cout<<i<<' '<<res[i]<<endl;
 	}
 	return 0;
 }
