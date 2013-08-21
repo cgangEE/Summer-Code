@@ -64,34 +64,51 @@ void fft(vir *y, int l, int on){
 }
 
 int i,j,k,m,n,l;
-int a[N+10];
-ll res[N+10];
+int a[N+10], cnt[N+10];
+ll res[N+10], sum[N+10];
 vir y[N+10];
+
+void gao(){
+	m++, l=1;
+	while (l<m*2) l<<=1;
+
+	rep(i, m) y[i]=vir(cnt[i], 0);
+	repf(i, m, l-1) y[i]=vir(0, 0);
+
+	fft(y, l, 1);
+	rep(i, l) y[i]=y[i]*y[i];
+	fft(y, l, -1);
+
+	rep(i, l) res[i]=(ll)(y[i].re+0.5);
+	rep(i, n) res[a[i]*2]--;
+	rep(i, l) res[i]/=2;
+	repf(i, 1, l-1) sum[i]=sum[i-1]+res[i];
+}
+
+
+void solve(){
+
+	double ret=0;
+	rep(i, n){
+		ret+=sum[l-1]-sum[a[i]];
+		ret-=n-1;
+		ret-=(double)(n-i-1)*(n-i-2)/2;
+		ret-=(double)(n-i-1)*i;
+	}
+	printf("%.7lf\n", ret*6./n/(n-1)/(n-2));
+}
 
 int main(){
 	int ts;
 	scanf("%d", &ts);
 	while (ts--){
-		clr(a, 0);
+		clr(cnt, 0), m=0;
 
 		scanf("%d", &n);
-		m=0;
-		while (n--) scanf("%d", &k), a[k]++, checkmax(m, k);
+		rep(i, n) scanf("%d", &a[i]), cnt[a[i]]++, checkmax(m, a[i]);
 
-		m++, l=1;
-		while (l<m*2) l<<=1;
-
-		rep(i, m) y[i]=vir(a[i], 0);
-		repf(i, m, l-1) y[i]=vir(0, 0);
-
-		fft(y, l, 1);
-		rep(i, l) y[i]=y[i]*y[i];
-		fft(y, l, -1);
-
-		rep(i, l) res[i]=(ll)(y[i].re+0.5);
-		rep(i, m) res[i*2]=(res[i*2]-a[i])/2;
-
-		rep(i, l) cout<<i<<' '<<res[i]<<endl;
+		gao();
+		solve();
 	}
 	return 0;
 }
