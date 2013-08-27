@@ -35,26 +35,38 @@ template <class T> void _checkmin(T &t, T x){if (t == -1 || x < t) t = x;}
 #define mid(x, y) ((x+y)/2)
 #define vp vector<P>
 #define itr iterator
-#define N 1000000
 
-struct P{
-	char s[8];
-	bool operator <(const P&p)const{
-		return strcmp(s, p.s)<0;
+int i,j,k,m,n,l,p;
+
+int gcd(int a, int b){
+	return b==0?a:gcd(b, a%b); 
+}
+
+int find(int i){
+	int x=1, y=n;
+	while (x!=y){
+		int z=mid(1+x, y);
+		if (i*i>=z*z*p) x=z;
+		else y=z-1;
 	}
-};
-
-int i,j,k,m,n,l;
-P a[N*2+10];
+	while (gcd(i, x)!=1) x--;
+	return x;
+}
 
 int main(){
-	while (~scanf("%d\n", &n)){
-		rep(i, 2*n-1) gets(a[i].s);
-		sort(a, a+2*n-1);
-		rep(i, n) if (strcmp(a[i*2].s, a[i*2+1].s)!=0){
-			puts(a[i*2].s);
-			break;
+	while (~scanf("%d%d", &p, &n) && n+p){
+		int x=n, y=1;
+		repf(i, 1, n){
+			j=find(i);
+			if (i*i>=j*j*p && i*y<x*j)
+				x=i, y=j;
 		}
+
+		//repf(i, 1, n) repf(j, 1, n) 
+		//	if (gcd(i, j)==1 && i*i>=j*j*p)
+
+		printf("%d/%d\n", x, y);
+
 	}
 	return 0;
 }

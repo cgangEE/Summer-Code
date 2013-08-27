@@ -37,23 +37,23 @@ template <class T> void _checkmin(T &t, T x){if (t == -1 || x < t) t = x;}
 #define itr iterator
 
 int i,j,k,m,n,l;
-char s[1000];
-
-int solve(){
-	int ret=0;
-	int n=strlen(s);
-	rep(i, n){
-		char ch=tolower(s[i]);
-		if (strchr("aeiou", ch)!=NULL) ret++;
-	}
-	return ret;
-}
 
 int main(){
-	while (gets(s)!=NULL){
-		if (strcmp(s, "*")==0) break;
-		printf("%d\n", solve());
+	scanf("%d", &n);
+	rep(i, n){
+		scanf("%d", &k);
+		ll x=0, y=INT_MAX;
+		while (x!=y){
+			ll z=mid(x+1, y);
+			ll val=(z-1)*z/2+1;
+			if (val<=k) x=z;
+			else y=z-1;
+		}
+		if (i) putchar(' ');
+		if ((x-1)*x/2+1==k) putchar('1');
+		else putchar('0');
 	}
+	puts("");
 	return 0;
 }
 

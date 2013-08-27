@@ -35,28 +35,18 @@ template <class T> void _checkmin(T &t, T x){if (t == -1 || x < t) t = x;}
 #define mid(x, y) ((x+y)/2)
 #define vp vector<P>
 #define itr iterator
+#define eps 1e-7
+
+int sgn(double d){
+	return d<-eps?-1:d>eps;
+}
 
 int i,j,k,m,n,l;
-char s[1000000];
+double x1, r1, x2, y2;
 
 int main(){
-	int tests;
-	scanf("%d\n", &tests);
-	while(tests--){
-		j=0, k=0;
-		while (1){
-		gets(s);
-		
-		if (strcmp(s, "##")==0) break;
-		n=strlen(s);
-		rep(i, n) if (s[i]=='\t') j++;
-		repd(i, n-1, 0) 
-			if (s[i]==' ') k++;
-			else if (s[i]=='\t') k+=4;
-			else break;
-		}
-		printf("%d tab(s) replaced\n", j);
-		printf("%d trailing space(s) removed\n", k);
+	while (~scanf("%lf%lf%lf%lf", &x1, &r1, &x2, &y2) && sgn(x1+x2+r1+y2)!=0){
+		printf("%.3lf\n",fabs( (x2-x1)*(y2-r1)));
 	}
 	return 0;
 }

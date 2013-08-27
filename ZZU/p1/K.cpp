@@ -35,24 +35,34 @@ template <class T> void _checkmin(T &t, T x){if (t == -1 || x < t) t = x;}
 #define mid(x, y) ((x+y)/2)
 #define vp vector<P>
 #define itr iterator
+#define N 3000
+
 
 int i,j,k,m,n,l;
-char s[1000];
+double a[N+10], c[N+10];
 
-int solve(){
-	int ret=0;
-	int n=strlen(s);
-	rep(i, n){
-		char ch=tolower(s[i]);
-		if (strchr("aeiou", ch)!=NULL) ret++;
+double gao(){
+	repf(i, 1, n){
+		a[i+1]=(2*a[i]+c[i])-a[i-1];
 	}
-	return ret;
+	return a[n+1];
 }
 
 int main(){
-	while (gets(s)!=NULL){
-		if (strcmp(s, "*")==0) break;
-		printf("%d\n", solve());
+	while (~scanf("%d", &n)){
+		double ends;
+		scanf("%lf%lf", &a[0], &ends);
+		repf(i, 1, n) scanf("%lf", &c[i]);
+		a[1]=0;
+		double ans=0, now=fabs(ends-gao());
+		for (a[1]=-1000; a[1]<=1000; a[1]+=0.01){
+			double k=fabs(gao()-ends);
+			if (k<now) now=k, ans=a[1];
+		}
+		cout<<now<<endl;
+		a[1]=ans;
+		cout<<gao()<<endl;
+		printf("%.2lf\n", ans);
 	}
 	return 0;
 }

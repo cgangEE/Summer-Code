@@ -35,25 +35,47 @@ template <class T> void _checkmin(T &t, T x){if (t == -1 || x < t) t = x;}
 #define mid(x, y) ((x+y)/2)
 #define vp vector<P>
 #define itr iterator
+#define N 100
 
 int i,j,k,m,n,l;
+string s, t;
+map<string, int> mp;
+int idx, bg, ed;
+vi a[N*2+10];
+string pre;
 
-int main(){
-	scanf("%d", &n);
-	rep(i, n){
-		scanf("%d", &k);
-		ll x=0, y=INT_MAX;
-		while (x!=y){
-			ll z=mid(x+1, y);
-			ll val=(z-1)*z/2+1;
-			if (val<=k) x=z;
-			else y=z-1;
-		}
-		if (i) putchar(' ');
-		if ((x-1)*x/2+1==k) putchar('1');
-		else putchar('0');
+int get(string s){
+	int ret=map[s];
+	if (ret==0) map[s]=++idx, ret=idx;
+	return ret;
+}
+
+void solve(){
+	bg=mp['sea'], ed=mp['sky'];
+	if (bg*ed==0){
+		puts("what a pity"); return;
 	}
-	puts("");
+
+	pre="what a pity";
+	repf(i, 2, n-1){
+		if (!dfs(bg)){
+			cout<<pre<<endl;
+			return;
+		}
+	}
+
+}
+int main(){
+	while (~scanf("%d", &n) && n){
+		idx=0;
+		repf(i, 1, n*2) a[i].clear();
+		rep(i, n){
+		   	cin>>s>>t;
+			j=get(s), k=get(t);
+			a[j].pb(k), a[k].pb(j);
+		}
+		solve();
+	}
 	return 0;
 }
 

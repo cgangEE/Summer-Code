@@ -37,22 +37,26 @@ template <class T> void _checkmin(T &t, T x){if (t == -1 || x < t) t = x;}
 #define itr iterator
 
 int i,j,k,m,n,l;
-char s[1000];
-
-int solve(){
-	int ret=0;
-	int n=strlen(s);
-	rep(i, n){
-		char ch=tolower(s[i]);
-		if (strchr("aeiou", ch)!=NULL) ret++;
-	}
-	return ret;
-}
+char s[1000000];
 
 int main(){
-	while (gets(s)!=NULL){
-		if (strcmp(s, "*")==0) break;
-		printf("%d\n", solve());
+	int tests;
+	scanf("%d\n", &tests);
+	while(tests--){
+		j=0, k=0;
+		while (1){
+		gets(s);
+		
+		if (strcmp(s, "##")==0) break;
+		n=strlen(s);
+		rep(i, n) if (s[i]=='\t') j++;
+		repd(i, n-1, 0) 
+			if (s[i]==' ') k++;
+			else if (s[i]=='\t') k+=4;
+			else break;
+		}
+		printf("%d tab(s) replaced\n", j);
+		printf("%d trailing space(s) removed\n", k);
 	}
 	return 0;
 }

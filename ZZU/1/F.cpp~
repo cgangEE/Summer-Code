@@ -15,6 +15,7 @@
 #include <stack>
 using namespace std;
 typedef vector<int> vi;
+typedef vector<double> vd;
 typedef map<int,int> mii;
 typedef long long ll;
 template <class T> void checkmax(T &t, T x){if (x > t) t = x;}
@@ -36,25 +37,57 @@ template <class T> void _checkmin(T &t, T x){if (t == -1 || x < t) t = x;}
 #define vp vector<P>
 #define itr iterator
 
-int i,j,k,m,n,l;
-char s[1000];
+#define eps 1e-9
+int sgn(double d){
+	return d<-eps?-1:d>eps;
+}
 
-int solve(){
-	int ret=0;
-	int n=strlen(s);
-	rep(i, n){
-		char ch=tolower(s[i]);
-		if (strchr("aeiou", ch)!=NULL) ret++;
+struct P{
+	int x, y;
+	double k;
+	P(){}
+	P(int x, int y):x(x),y(y){
+		k=x*1./y;
 	}
-	return ret;
+	P operator +(const P&p)const{
+		return P(x+p.x, y+p.y);
+	}
+	int gcd(int a, int b){
+		return b==0?a:gcd(b, a%b); 
+	}
+	int gcd(){ return gcd(x, y); }
+	bool operator <(const P&p)const{
+		if (x*p.y!=y*p.x) 
+		return x*p.y<y*p.x;
+		return x<p.x;
+	}
+	void out(){
+		printf("%d/%d ", x, y);
+	}
+};
+
+int i,j,k,m,n,l,p;
+vp v;
+
+void gao(P f, P g){
+	P k=f+g;
+	f.out(); k.out(); g.out();
+	system("pause");
+	gao(f, k), gao(k, g);
 }
 
 int main(){
-	while (gets(s)!=NULL){
-		if (strcmp(s, "*")==0) break;
-		printf("%d\n", solve());
+	repf(i, 1, 10) repf(j, 1, 10) if (P(i,j).gcd()==1) v.pb(P(i,j));
+
+	sort(all(v));
+
+	rep(i, sz(v)){
+		v[i].out();
+		if ((i+1)%10==0) cout<<endl;
 	}
+
+	P f(0, 1), g(1, 1);
+	gao(f, g);
 	return 0;
 }
-
 

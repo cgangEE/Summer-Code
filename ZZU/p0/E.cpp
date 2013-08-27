@@ -35,24 +35,26 @@ template <class T> void _checkmin(T &t, T x){if (t == -1 || x < t) t = x;}
 #define mid(x, y) ((x+y)/2)
 #define vp vector<P>
 #define itr iterator
+#define cube(k) (k)*(k)*(k)
 
 int i,j,k,m,n,l;
-char s[1000];
-
-int solve(){
-	int ret=0;
-	int n=strlen(s);
-	rep(i, n){
-		char ch=tolower(s[i]);
-		if (strchr("aeiou", ch)!=NULL) ret++;
-	}
-	return ret;
-}
 
 int main(){
-	while (gets(s)!=NULL){
-		if (strcmp(s, "*")==0) break;
-		printf("%d\n", solve());
+	vi a;
+	repf(i, 1, 9) repf(j, 0, 9) repf(k, 0, 9)
+		if (cube(i)+cube(j)+cube(k)==i*100+j*10+k)
+			a.pb(i*100+j*10+k);
+	while (~scanf("%d%d", &n, &m)){
+		vi ans;
+		rep(i, sz(a)) if (a[i]>=n && a[i]<=m) ans.pb(a[i]);
+		if (sz(ans)){
+			rep(i, sz(ans)){
+				if (i) putchar(' ');
+				printf("%d", ans[i]);
+			}
+			puts("");
+		}
+		else puts("no");
 	}
 	return 0;
 }

@@ -37,22 +37,10 @@ template <class T> void _checkmin(T &t, T x){if (t == -1 || x < t) t = x;}
 #define itr iterator
 
 int i,j,k,m,n,l;
-char s[1000];
-
-int solve(){
-	int ret=0;
-	int n=strlen(s);
-	rep(i, n){
-		char ch=tolower(s[i]);
-		if (strchr("aeiou", ch)!=NULL) ret++;
-	}
-	return ret;
-}
 
 int main(){
-	while (gets(s)!=NULL){
-		if (strcmp(s, "*")==0) break;
-		printf("%d\n", solve());
+	while (~scanf("%d%d", &n, &m) && n+m){
+		puts(n>m?"Yes":"No");
 	}
 	return 0;
 }

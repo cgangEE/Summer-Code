@@ -35,24 +35,35 @@ template <class T> void _checkmin(T &t, T x){if (t == -1 || x < t) t = x;}
 #define mid(x, y) ((x+y)/2)
 #define vp vector<P>
 #define itr iterator
+#define N 100 
 
 int i,j,k,m,n,l;
-char s[1000];
-
-int solve(){
-	int ret=0;
-	int n=strlen(s);
-	rep(i, n){
-		char ch=tolower(s[i]);
-		if (strchr("aeiou", ch)!=NULL) ret++;
-	}
-	return ret;
-}
+char a[N+10][N+10];
+char b[N+10][N+10];
 
 int main(){
-	while (gets(s)!=NULL){
-		if (strcmp(s, "*")==0) break;
-		printf("%d\n", solve());
+	int test=0;
+	while (~scanf("%d%d", &n, &m) && n+m){
+		clr(a, 0), clr(b, 0);
+		repf(i, 1, n) repf(j, 1, m) {
+			a[i][j]=getchar();
+			while (a[i][j]!='*' && a[i][j]!='.') a[i][j]=getchar();
+		}
+		repf(i, 1, n) repf(j, 1, m){
+			if (a[i][j]=='*') b[i][j]='*';
+			else{
+				b[i][j]='0';
+				repf(x, -1, 1) repf(y, -1, 1) if (a[i+x][j+y]=='*')
+					b[i][j]++;
+			}
+		}
+		if (test) puts("");
+		printf("Field #%d:\n", ++test);
+		repf(i, 1, n){
+			repf(j, 1, m) putchar(b[i][j]);
+			puts("");
+		}
+
 	}
 	return 0;
 }

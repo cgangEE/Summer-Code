@@ -1,0 +1,25 @@
+1. Tutor
+给定一共12月的工资，精确到分（小数点后两位），要求你求平均工资，四舍五入到分。
+小数处理 
+
+2. Teamwork
+
+3. Rectangle
+
+4. D-City
+最小生成树
+
+5. GCD and LCM
+给定三个数A,B,C的最大公约数G和最小公倍数L，要求多少A，B，C满足情况。
+数论 令x=L/G，把x分解为a1^k1 * a2^k2 * ... * a2^kn，对于每一个ai^ki，都与其他的质因子独立，所以把ai^ki分配到A,B,C中，是他们的与为0，或为ki。这样的方法数之积就为总的方法数。
+
+6. Function Curve
+
+7. Cannon
+
+8. Play Game
+
+9. Differece
+
+10. Dice
+

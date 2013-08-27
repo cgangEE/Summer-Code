@@ -21,6 +21,7 @@ template <class T> void checkmax(T &t, T x){if (x > t) t = x;}
 template <class T> void checkmin(T &t, T x){if (x < t) t = x;}
 template <class T> void _checkmax(T &t, T x){if (t == -1 || x > t) t = x;}
 template <class T> void _checkmin(T &t, T x){if (t == -1 || x < t) t = x;}
+template <class T>T xabs(T a){ return a<0?-a:a; }
 #define INF (INT_MAX/10)
 #define SQR(x) ((x)*(x))
 #define rep(i, n) for (int i=0; i<(n); ++i)
@@ -35,24 +36,40 @@ template <class T> void _checkmin(T &t, T x){if (t == -1 || x < t) t = x;}
 #define mid(x, y) ((x+y)/2)
 #define vp vector<P>
 #define itr iterator
+#define N 100000
+
+struct P{
+	ll x, y;
+	P(){}
+	P(int x, int y):x(x),y(y){}
+	P operator -(const P&p)const{ return P(x-p.x, y-p.y ); }
+	ll operator *(const P&p)const{ return x*p.y-y*p.x; }
+	void out(){ cout<<x<<' '<<y<<endl; }
+};
 
 int i,j,k,m,n,l;
-char s[1000];
-
-int solve(){
-	int ret=0;
-	int n=strlen(s);
-	rep(i, n){
-		char ch=tolower(s[i]);
-		if (strchr("aeiou", ch)!=NULL) ret++;
-	}
-	return ret;
-}
+P a[N+10];
 
 int main(){
-	while (gets(s)!=NULL){
-		if (strcmp(s, "*")==0) break;
-		printf("%d\n", solve());
+	while (~scanf("%d", &n)){
+		repf(i, 1, n) scanf("%d", &k), a[i]=P(i, k);
+		vp b;
+		repf(i, 1, n){
+			while (sz(b)>1 && (b[sz(b)-1]-b[sz(b)-2])*(a[i]-b[sz(b)-2])>0)
+				b.pop_back();
+			b.pb(a[i]);
+		}
+		
+		P now(1, 0), ans(1, 2);	
+		rep(i, sz(b)-1){
+			P p=b[i]-b[i+1];
+			p.x=xabs(p.x), p.y=xabs(p.y);
+
+			if (now*p>0){
+			   	now=p, ans=P(b[i].x, b[i+1].x);
+			}
+		}	
+		printf("%d %d\n", (int)ans.x, (int)ans.y);
 	}
 	return 0;
 }

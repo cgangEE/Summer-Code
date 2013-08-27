@@ -37,22 +37,36 @@ template <class T> void _checkmin(T &t, T x){if (t == -1 || x < t) t = x;}
 #define itr iterator
 
 int i,j,k,m,n,l;
-char s[1000];
+vi a;
+int v[]={2, 3, 5, 7};
 
-int solve(){
-	int ret=0;
-	int n=strlen(s);
-	rep(i, n){
-		char ch=tolower(s[i]);
-		if (strchr("aeiou", ch)!=NULL) ret++;
+void dfs(ll i, int j){
+	if (j==4){
+		a.pb(i);
+		return;
 	}
-	return ret;
+	rep(k, 40){
+		dfs(i, j+1);
+		i*=v[j];
+		if (i>2000000000) break;
+	}
+}
+
+char *gao(int test){
+	if (test%100>=11 && test%100<=13) return "th";
+	if (test%10==1) return "st";
+	if (test%10==2) return "nd";
+	if (test%10==3) return "rd";
+	return "th";
 }
 
 int main(){
-	while (gets(s)!=NULL){
-		if (strcmp(s, "*")==0) break;
-		printf("%d\n", solve());
+	dfs(1, 0);
+	sort(all(a));
+	int test=0;
+	while (~scanf("%d", &n) && n){
+		++test;
+		printf("The %d%s humble number is %d.\n", n, gao(n), a[n-1]);
 	}
 	return 0;
 }

@@ -37,22 +37,24 @@ template <class T> void _checkmin(T &t, T x){if (t == -1 || x < t) t = x;}
 #define itr iterator
 
 int i,j,k,m,n,l;
-char s[1000];
-
-int solve(){
-	int ret=0;
-	int n=strlen(s);
-	rep(i, n){
-		char ch=tolower(s[i]);
-		if (strchr("aeiou", ch)!=NULL) ret++;
-	}
-	return ret;
-}
+string s, t;
 
 int main(){
-	while (gets(s)!=NULL){
-		if (strcmp(s, "*")==0) break;
-		printf("%d\n", solve());
+	int tests;
+	scanf("%d", &tests);
+	rep(test, tests){
+		map<string, map<string, int> > mp;
+		scanf("%d", &n);
+		while (n--){
+			cin>>s>>t>>k;
+			mp[t][s]+=k;
+		}
+		if (test) puts("");
+		foreach(it, mp){
+			cout<<it->first<<endl;
+			foreach(it2, it->second)
+				cout<<"   |----"<<it2->first<<"("<<it2->second<<")"<<endl;
+		}
 	}
 	return 0;
 }

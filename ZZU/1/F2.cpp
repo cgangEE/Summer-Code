@@ -15,6 +15,7 @@
 #include <stack>
 using namespace std;
 typedef vector<int> vi;
+typedef vector<double> vd;
 typedef map<int,int> mii;
 typedef long long ll;
 template <class T> void checkmax(T &t, T x){if (x > t) t = x;}
@@ -36,25 +37,39 @@ template <class T> void _checkmin(T &t, T x){if (t == -1 || x < t) t = x;}
 #define vp vector<P>
 #define itr iterator
 
-int i,j,k,m,n,l;
-char s[1000];
-
-int solve(){
-	int ret=0;
-	int n=strlen(s);
-	rep(i, n){
-		char ch=tolower(s[i]);
-		if (strchr("aeiou", ch)!=NULL) ret++;
-	}
-	return ret;
+#define eps 1e-9
+int sgn(double d){
+	return d<-eps?-1:d>eps;
 }
+
+struct P{
+	int x, y;
+	double k;
+	P(){}
+	P(int x, int y):x(x),y(y){
+		k=x*1./y;
+	}
+	P operator +(const P&p)const{
+		return P(x+p.x, y+p.y);
+	}
+	int gcd(int a, int b){
+		return b==0?a:gcd(b, a%b); 
+	}
+	int gcd(){ return gcd(x, y); }
+	bool operator <(const P&p)const{
+		if (x*p.y!=y*p.x) 
+		return x*p.y<y*p.x;
+		return x<p.x;
+	}
+	void out(){
+		printf("%d/%d ", x, y);
+	}
+};
+
+int i,j,k,m,n,l,p;
+
 
 int main(){
-	while (gets(s)!=NULL){
-		if (strcmp(s, "*")==0) break;
-		printf("%d\n", solve());
-	}
 	return 0;
 }
-
 
