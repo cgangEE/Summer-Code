@@ -36,26 +36,45 @@ template <class T> void _checkmin(T &t, T x){if (t == -1 || x < t) t = x;}
 #define vp vector<P>
 #define itr iterator
 #define N 100000
+#define M 30
 
 int i,j,k,m,n,l;
 int a[N+10];
+int dp[M];
+
+int gao(){
+	clr(dp, 0);
+	int ret=0, j=1;
+	repf(i, 1, n){
+		int l=0;
+		repd(k, M, 0){
+		   	if ((1<<k)&a[i]) dp[k]++;
+			l<<=1;
+			if (dp[k]) l+=1;
+		}
+		while (j<=i && l>=m){
+			l=0;
+			repd(k, M, 0){
+				if ((1<<k)&a[j]) dp[k]--;
+				l<<=1;
+				if (dp[k]) l+=1;
+			}
+			j++;
+		}
+		ret+=(i-j+1);
+	}
+	return ret;
+}
 
 int main(){
     int ts;
+
     scanf("%d", &ts);
     repf(te, 1, ts){
             scanf("%d%d", &n, &m);
             repf(i, 1, n) scanf("%d", &a[i]);
-            int ret=0;
-            repf(i, 1, n){
-                int x=0;
-                repd(j, i, 1){
-                    x|=a[j];
-                    if (x>=m) break;
-                    ret++;
-                }
-            }
-            printf("Case #%d: %d\n", te, ret);
+            printf("Case #%d: %d\n", te, gao());
     }
     return 0;
 }
+
