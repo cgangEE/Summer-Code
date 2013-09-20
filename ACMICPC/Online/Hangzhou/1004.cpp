@@ -68,12 +68,6 @@ struct L{
 int i,j,k,m,n,l;
 L alpha, beta;
 
-double linetoline(P u1, P u2, P v1, P v2){
-    P n = u2 * v2;
-    if (sgn(n^n)==0) return ((v1-u1)*u2).len()/u2.len();
-    return fabs( ((u1-v1)^n) / n.len());
-}
-
 void gao(P p1, P u, P p2, P v){
     double b = (u^u)*(v^v) - (u^v)*(u^v);
     double a = (u^v)*(v^(p1-p2)) - (v^v)*(u ^ (p1-p2));
