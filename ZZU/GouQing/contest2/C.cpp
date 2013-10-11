@@ -90,7 +90,8 @@ int main(){
 		repf(i, 2, n-1){
 			rep(x, 10) rep(y, 10) if (f[i-1][x][y]!=-1)
 				rep(u, 10) rep(v, 10)
-					checkmin(f[i][u][v], f[i-1][x][y]+g[(x*10+y)*10+s[i]-'0'][((t[i-2]-'0')*10+u)*10+v]);
+					checkmin(f[i][u][v], 
+						f[i-1][x][y]+g[(x*10+y)*10+s[i]-'0'][((t[i-2]-'0')*10+u)*10+v]);
 		}
 		int ret=-1;
 		k=(t[n-2]-'0')*10+t[n-1]-'0';
