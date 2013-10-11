@@ -62,11 +62,6 @@ void gao(int g[], int e){
 					p.a[k]=(p.a[k]+j+10)%10;
 
 				int val=p.val();
-/*
-				cout<<i<<' '<<j<<endl;
-				rep(k, 3) cout<<p.a[k]<<' ';
-				cout<<endl;
-*/			
 
 				if (g[val]==-1){
 					g[val]=l+1, q.push(p);
@@ -75,15 +70,6 @@ void gao(int g[], int e){
 		q.pop();
 	}
 }
-
-void dfs(int i, int u, int v, int k){
-	if (i==2) return;
-	rep(x, 10) rep(y, 10) if (f[i-1][x][y]+g[(x*10+y)*10+s[i]-'0'][((t[i-2]-'0')*10+u)*10+v]==k){
-		dfs(i-1, x, y, f[i-1][x][y]);
-		return;
-	}
-}
-
 
 int main(){
 	clr(g, -1);
@@ -112,7 +98,6 @@ int main(){
 
 			checkmin(ret, f[n-1][x][y] + g[x*10+y][k]);
 		}
-		dfs(n-1, 0, 5, f[n-1][0][5]);
 		printf("%d\n", ret);
 	}
 	return 0;
